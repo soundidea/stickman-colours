@@ -43,3 +43,10 @@ I take a further opportunity to prune spam out of the database in two ways. Firs
 
 A further pruning step removes all of the colours where the variance is too big. This is done as follows: from the 50 most popular colours, choose the one with the biggest variance (blue, as it happens). Delete all colours with a bigger variance. This eliminated most of the spam of answers such as "I don't know" and certain epithets that were repeated many times (there are over 3800 instances of the N-word in the answers, for example).
 
+```
+$ python db_2_json.py > colours.js
+```
+
+Finally, take the top 1000 colours and output them to a JavaScript file as an array. RGB values are converted back to integers, Lab and variance are trimmed to 3 decimal places. This produces a JS file approximately 100KiB in size, which gzips-down to approximately 30KiB. Acceptable.
+
+In future I may need to convert this from AOS (array of structs) to SOA (structure of arrays) if searching proves to be too slow. That will also trim the JS file size because the field names will only appear once, but I suspect the gzipped size will not be affected much. I could also shrink the file by removing the RGB values and recalculating them on the fly, but I don't think it really matters.
