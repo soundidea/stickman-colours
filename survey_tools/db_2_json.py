@@ -3,13 +3,8 @@ import sys
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-db = sql.connect('colorsurvey.db')
-with db:
-	db.row_factory = sql.Row
-	cur = db.cursor();
 
-	print """
-/* Each row contains a colour. The fields are as follows:
+print """/* Each row contains a colour. The fields are as follows:
  *   colours[n][0] - Name 
  *   colours[n][1] - Count (number of answers) 
  *   colours[n][2] - Red 0-255
@@ -22,6 +17,10 @@ with db:
  */
 var colours = ["""
 
+db = sql.connect('colorsurvey.db')
+with db:
+	db.row_factory = sql.Row
+	cur = db.cursor();
 	cur.execute("SELECT * FROM averages ORDER BY count DESC LIMIT 1000;")
 	while True:
 		row = cur.fetchone()
@@ -38,4 +37,5 @@ var colours = ["""
 			+ "{0:.3f}".format(row["clab_b"]) + ","
 			+ "{0:.3f}".format(row["variance"])
 			+ "],")
-	print "];"
+
+print "];"
