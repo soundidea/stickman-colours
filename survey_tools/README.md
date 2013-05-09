@@ -1,4 +1,4 @@
-These python routines are for working with the survey data that Randall Munroe compiled in his [2010 colour survey][http://blog.xkcd.com/2010/05/03/color-survey-results/]. The raw data is available as a sqlite dump [here](http://xkcd.com/color/colorsurvey.tar.gz) (83.6MiB .tar.gz).
+These python routines are for working with the survey data that Randall Munroe compiled in his [2010 colour survey](http://blog.xkcd.com/2010/05/03/color-survey-results/). The raw data is available as a sqlite dump [here](http://xkcd.com/color/colorsurvey.tar.gz) (83.6MiB .tar.gz).
 
 When you untar the data you get two files, mainsurvey_sqldump.txt and satfaces_sqldump.txt. We're only interested in the first of the two. Recreate the sqlite database as follows:
 
@@ -29,7 +29,7 @@ I'm only interested in the `answers` table. `names` contains some aggregate stat
 $ python db_colorfill.py
 ```
 
-For better colour-matching, I decided to convert all the colours into the [CIE-L*a*b*][http://en.wikipedia.org/wiki/Lab_color_space#CIELAB] space, which is purportedly the best space for representing the human perception of colour. In theory, the closer-together two points are in this space, the closer together they appear to a human observer as well. The resulting new table is called `conv_ans`.
+For better colour-matching, I decided to convert all the colours into the [CIE-L*a*b*](http://en.wikipedia.org/wiki/Lab_color_space#CIELAB) space, which is purportedly the best space for representing the human perception of colour. In theory, the closer-together two points are in this space, the closer together they appear to a human observer as well. The resulting new table is called `conv_ans`.
 
 I also take the opportunity here to fix some of the issues with the colour names, stripping leading and trailing whitespace, removing double-spaces, quotes, and certain other punctuation.
 
